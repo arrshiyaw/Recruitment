@@ -12,11 +12,11 @@ app.testing = True
 class TestApi(unittest.TestCase):
 
     def setUp(self) -> None:
-        with open('phonenumbers.json') as json_file:
+        with open('contact/phonenumbers.json') as json_file:
             self.users = json.load(json_file)
 
     def tearDown(self) -> None:
-        with open('phonenumbers.json', 'w') as json_file:
+        with open('contact/phonenumbers.json', 'w') as json_file:
             json.dump(self.users, json_file, indent=2)
 
     def test_get_contacts(self):

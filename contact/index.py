@@ -5,17 +5,17 @@ app = Flask(__name__)
 
 @app.route('/contacts', methods=['GET'])
 def get_contacts():
-    with open('phonenumbers.json') as json_file:
+    with open('contact/phonenumbers.json') as json_file:
         return jsonify(json.load(json_file))
 
 
 @app.route("/delete/<fullname>", methods=['DELETE'])
 def delete_contact(fullname):
-    with open('phonenumbers.json') as json_file:
+    with open('contact/phonenumbers.json') as json_file:
         contacts = json.load(json_file)
     if fullname in contacts:
         contacts.pop(fullname)
-        with open('phonenumbers.json', 'w') as json_file:
+        with open('contact/phonenumbers.json', 'w') as json_file:
             json.dump(contacts, json_file, indent=2)
         return jsonify(contacts)
     else:
@@ -24,18 +24,18 @@ def delete_contact(fullname):
 
 @app.route('/add', methods=['POST'])
 def add_contact():
-    with open('phonenumbers.json') as json_file:
+    with open('contact/phonenumbers.json') as json_file:
         users = json.load(json_file)
         new_user = json.loads(request.data.decode("utf-8"))
         users.update(new_user)
-        with open('phonenumbers.json', 'w') as json_file:
+        with open('contact/phonenumbers.json', 'w') as json_file:
             json.dump(users, json_file, indent=2)
         return jsonify(users)
 
 
 @app.route('/update', methods=['PUT'])
 def update_contact():
-    with open('phonenumbers.json') as json_file:
+    with open('contact/phonenumbers.json') as json_file:
         users = json.load(json_file)
         new_user = json.loads(request.data.decode("utf-8"))
         if new_user["full_name"] in users:
@@ -56,7 +56,7 @@ def update_contact():
                             users[new_user["full_name"]]["numbers"][change_type[1]] = \
                                 users[new_user["full_name"]]["numbers"][number]
                             users[new_user["full_name"]]["numbers"].pop(number)
-            with open('phonenumbers.json', 'w') as json_file:
+            with open('contact/phonenumbers.json', 'w') as json_file:
                 json.dump(users, json_file, indent=2)
             return jsonify(users)
         else:
