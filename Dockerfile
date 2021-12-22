@@ -14,4 +14,4 @@ HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
 
 ENTRYPOINT [ "python" ]
 
-CMD [ "contact/index.py" ]
+CMD [ "contact/views.py" ]

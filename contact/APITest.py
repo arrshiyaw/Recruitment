@@ -4,7 +4,7 @@ import random
 import names
 from copy import deepcopy
 
-from contact.index import app
+from contact.views import app
 
 app.testing = True
 
