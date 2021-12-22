@@ -5,13 +5,13 @@ app = Flask(__name__)
 
 @app.route('/contacts', methods=['GET'])
 def get_contacts():
-    with open('contact/phonenumbers.json') as json_file:
+    with open('phonenumbers.json') as json_file:
         return jsonify(json.load(json_file))
 
 
 @app.route("/delete/<fullname>", methods=['DELETE'])
 def delete_contact(fullname):
-    with open('contact/phonenumbers.json') as json_file:
+    with open('phonenumbers.json') as json_file:
         contacts = json.load(json_file)
     if fullname in contacts:
         contacts.pop(fullname)
@@ -24,7 +24,7 @@ def delete_contact(fullname):
 
 @app.route('/add', methods=['POST'])
 def add_contact():
-    with open('contact/phonenumbers.json') as json_file:
+    with open('phonenumbers.json') as json_file:
         users = json.load(json_file)
         new_user = json.loads(request.data.decode("utf-8"))
         users.update(new_user)
@@ -35,7 +35,7 @@ def add_contact():
 
 @app.route('/update', methods=['PUT'])
 def update_contact():
-    with open('contact/phonenumbers.json') as json_file:
+    with open('phonenumbers.json') as json_file:
         users = json.load(json_file)
         new_user = json.loads(request.data.decode("utf-8"))
         if new_user["full_name"] in users:
